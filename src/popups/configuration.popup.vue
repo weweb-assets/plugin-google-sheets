@@ -90,7 +90,9 @@ export default {
                     pluginId: wwLib.wwPlugins.pluginSpreadsheet.id,
                     settingsId: this.settings.id,
                 },
+                fetchPolicy: 'no-cache',
             });
+            this.profile = undefined;
             window.open(data.getGoogleAuthorize.data.authUrl, '_target');
             this.options.setLoadingStatus(true);
             this.interval = setInterval(this.getProfile, 1000);
@@ -104,6 +106,7 @@ export default {
                         pluginId: wwLib.wwPlugins.pluginSpreadsheet.id,
                         settingsId: this.settings.id,
                     },
+                    fetchPolicy: 'no-cache',
                 });
                 this.profile = data.getGoogleProfile.data.profile;
                 wwLib.wwPlugins.pluginSpreadsheet.settings.privateData.token = data.getGoogleProfile.data.token;
