@@ -1,14 +1,14 @@
 <template>
-    <div class="ww-popup-spreadsheet-automations">
-        <div class="spreadsheet-automations__row" v-for="(sheet, index) in settings.privateData.sheets" :key="index">
+    <div class="ww-popup-spreadsheet-webhooks">
+        <div class="spreadsheet-webhooks__row" v-for="(sheet, index) in settings.privateData.sheets" :key="index">
             <div class="paragraph-m">{{ sheet.name }}</div>
             <button class="ww-editor-button -primary -green -small m-auto-left" @click="copyCode(sheet)">
                 <wwEditorIcon class="ww-editor-button-icon -left" name="copy-paste" small />
-                Copy code
+                Copy url
             </button>
             <a class="ww-editor-button -secondary -small m-left" :href="settings.privateData.url" target="_blank">
                 <wwEditorIcon class="ww-editor-button-icon -left" name="open-out" small />
-                Setup automation
+                Setup webhook
             </a>
         </div>
     </div>
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-    name: 'AutomationsPopup',
+    name: 'WebhooksPopup',
     props: {
         options: {
             type: Object,
@@ -61,12 +61,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.ww-popup-spreadsheet-automations {
+.ww-popup-spreadsheet-webhooks {
     position: relative;
     display: flex;
     flex-direction: column;
     padding: var(--ww-spacing-03) 0;
-    .spreadsheet-automations {
+    .spreadsheet-webhooks {
         &__row {
             display: flex;
             align-items: center;

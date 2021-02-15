@@ -92,8 +92,7 @@ export default {
                         spreadsheetId: this.settings.privateData.spreadsheetId,
                     },
                 });
-                const { properties, sheets } = data.getGoogleSpreadsheetMeta.data;
-                this.sheet.name = properties.title;
+                const { sheets } = data.getGoogleSpreadsheetMeta.data;
                 this.allSheets = sheets.map(sheet => {
                     return {
                         value: sheet.properties.title,

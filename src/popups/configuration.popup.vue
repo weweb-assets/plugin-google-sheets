@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { GET_GOOGLE_AUTORIZE, GET_GOOGLE_SPREADSHEET_META } from '../graphql';
+import { GET_GOOGLE_AUTHORIZE, GET_GOOGLE_PROFILE, GET_GOOGLE_SPREADSHEET_META } from '../graphql';
 
 export default {
     name: 'ConfigurationPopup',
@@ -84,21 +84,21 @@ export default {
     methods: {
         async authorize() {
             const { data } = await wwLib.$apollo.query({
-                query: GET_GOOGLE_AUTORIZE,
+                query: GET_GOOGLE_AUTHORIZE,
                 variables: {
                     designId: wwLib.wwWebsiteData.getDesign().info.id,
                     pluginId: wwLib.wwPlugins.pluginSpreadsheet.id,
                     settingsId: this.settings.id,
                 },
             });
-            window.open(data.getGoogleAutorize.data.authUrl, '_target');
+            window.open(data.getGoogleAuthorize.data.authUrl, '_target');
             this.options.setLoadingStatus(true);
             this.interval = setInterval(this.getProfile, 1000);
         },
         async getProfile() {
             try {
                 const { data } = await wwLib.$apollo.query({
-                    query: GET_GOOGLE_AUTORIZE,
+                    query: GET_GOOGLE_PROFILE,
                     variables: {
                         designId: wwLib.wwWebsiteData.getDesign().info.id,
                         pluginId: wwLib.wwPlugins.pluginSpreadsheet.id,
@@ -107,6 +107,7 @@ export default {
                 });
                 this.profile = data.getGoogleProfile.data.profile;
                 wwLib.wwPlugins.pluginSpreadsheet.settings.privateData.token = data.getGoogleProfile.data.token;
+                this.settings.privateData.token = data.getGoogleProfile.data.token;
                 this.options.setLoadingStatus(false);
                 clearInterval(this.interval);
             } catch (err) {

@@ -10,9 +10,9 @@
             <div class="spreadsheet-settings__properties-name paragraph-s">Webhooks</div>
             <wwEditorIcon class="spreadsheet-settings__properties-icon -right" name="chevron-forward" />
         </div>
-        <div class="spreadsheet-settings__properties" @click="next('SPREADSHEET_SPREADSHEETS_POPUP')">
+        <div class="spreadsheet-settings__properties" @click="next('SPREADSHEET_SHEETS_POPUP')">
             <wwEditorIcon class="spreadsheet-settings__properties-icon -left" name="bind" />
-            <div class="spreadsheet-settings__properties-name paragraph-s">Spreadsheets</div>
+            <div class="spreadsheet-settings__properties-name paragraph-s">Sheets</div>
             <wwEditorIcon class="spreadsheet-settings__properties-icon -right" name="chevron-forward" />
         </div>
         <div class="spreadsheet-settings__properties" @click="next('SPREADSHEET_CONFIGURATION_POPUP')">

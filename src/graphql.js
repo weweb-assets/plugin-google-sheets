@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
-export const GET_GOOGLE_AUTORIZE = gql`
-    query GetGoogleAutorize($designId: String!, $pluginId: String!, $settingsId: String!) {
-        getGoogleAutorize(designId: $designId, pluginId: $pluginId, settingsId: $settingsId) {
+export const GET_GOOGLE_AUTHORIZE = gql`
+    query GetGoogleAuthorize($designId: String!, $pluginId: String!, $settingsId: String!) {
+        getGoogleAuthorize(designId: $designId, pluginId: $pluginId, settingsId: $settingsId) {
             success
             data
         }
