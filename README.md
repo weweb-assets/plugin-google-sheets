@@ -1,4 +1,4 @@
-# PLUGIN-SPREADSHEET
+# PLUGIN-GOOGLE-SHEETS
 
 This is a plugin for Weweb.
 
@@ -12,4 +12,4 @@ To serve locally, run yarn serve --port=[PORT], and then go to Weweb editor, ope
 
 ## Build
 
-Before release, you can check build error by running yarn build --name=plugin-spreadsheet
+Before release, you can check build error by running yarn build --name=plugin-google-sheets

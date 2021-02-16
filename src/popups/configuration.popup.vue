@@ -1,40 +1,40 @@
 <template>
-    <div class="ww-popup-spreadsheet-configuration">
+    <div class="ww-popup-google-sheets-configuration">
         <template v-if="!profile">
-            <label class="spreadsheet-configuration__label caption-s" for="api-key">
+            <label class="google-sheets-configuration__label caption-s" for="api-key">
                 Connection to Google
-                <div class="spreadsheet-configuration__label-required">required</div>
+                <div class="google-sheets-configuration__label-required">required</div>
             </label>
             <button class="ww-editor-button -primary" @click="authorize">Sign in</button>
         </template>
         <template v-else>
-            <label class="spreadsheet-configuration__label caption-s" for="api-key"> Connnected as </label>
-            <div class="spreadsheet-configuration__row spreadsheet-configuration__input">
-                <img class="spreadsheet-configuration__image" :src="profile.picture" alt="" width="30" height="30" />
+            <label class="google-sheets-configuration__label caption-s" for="api-key"> Connnected as </label>
+            <div class="google-sheets-configuration__row google-sheets-configuration__input">
+                <img class="google-sheets-configuration__image" :src="profile.picture" alt="" width="30" height="30" />
                 <div class="caption-l m-left">{{ profile.name }}</div>
                 <button class="ww-editor-button -primary -small m-auto-left" @click="authorize">Switch account</button>
             </div>
-            <label class="spreadsheet-configuration__label caption-s" for="url-spreadsheet">
+            <label class="google-sheets-configuration__label caption-s" for="url-google-sheets">
                 Url
-                <div class="spreadsheet-configuration__label-required">required</div>
+                <div class="google-sheets-configuration__label-required">required</div>
             </label>
             <input
                 type="text"
-                name="url-spreadsheet"
-                class="spreadsheet-configuration__input caption-m ww-editor-input -large"
+                name="url-google-sheets"
+                class="google-sheets-configuration__input caption-m ww-editor-input -large"
                 placeholder="https://docs.google.com/spreadsheets/d/..."
                 v-model="settings.privateData.url"
                 @input="setSpreadsheetId"
             />
             <template v-if="settings.privateData.name">
-                <label class="spreadsheet-configuration__label caption-s" for="name-spreadsheet">
+                <label class="google-sheets-configuration__label caption-s" for="name-google-sheets">
                     Name
-                    <div class="spreadsheet-configuration__label-required">optional</div>
+                    <div class="google-sheets-configuration__label-required">optional</div>
                 </label>
                 <input
                     type="text"
-                    name="name-spreadsheet"
-                    class="spreadsheet-configuration__input caption-m ww-editor-input -large"
+                    name="name-google-sheets"
+                    class="google-sheets-configuration__input caption-m ww-editor-input -large"
                     placeholder="Name"
                     v-model="settings.privateData.name"
                     disabled
@@ -87,7 +87,7 @@ export default {
                 query: GET_GOOGLE_AUTHORIZE,
                 variables: {
                     designId: wwLib.wwWebsiteData.getDesign().info.id,
-                    pluginId: wwLib.wwPlugins.pluginSpreadsheet.id,
+                    pluginId: wwLib.wwPlugins.pluginGoogleSheets.id,
                     settingsId: this.settings.id,
                 },
                 fetchPolicy: 'no-cache',
@@ -103,13 +103,13 @@ export default {
                     query: GET_GOOGLE_PROFILE,
                     variables: {
                         designId: wwLib.wwWebsiteData.getDesign().info.id,
-                        pluginId: wwLib.wwPlugins.pluginSpreadsheet.id,
+                        pluginId: wwLib.wwPlugins.pluginGoogleSheets.id,
                         settingsId: this.settings.id,
                     },
                     fetchPolicy: 'no-cache',
                 });
                 this.profile = data.getGoogleProfile.data.profile;
-                wwLib.wwPlugins.pluginSpreadsheet.settings.privateData.token = data.getGoogleProfile.data.token;
+                wwLib.wwPlugins.pluginGoogleSheets.settings.privateData.token = data.getGoogleProfile.data.token;
                 this.settings.privateData.token = data.getGoogleProfile.data.token;
                 this.options.setLoadingStatus(false);
                 clearInterval(this.interval);
@@ -125,7 +125,7 @@ export default {
                     query: GET_GOOGLE_SPREADSHEET_META,
                     variables: {
                         designId: wwLib.wwWebsiteData.getDesign().info.id,
-                        pluginId: wwLib.wwPlugins.pluginSpreadsheet.id,
+                        pluginId: wwLib.wwPlugins.pluginGoogleSheets.id,
                         settingsId: this.settings.id,
                         spreadsheetId: this.settings.privateData.spreadsheetId,
                     },
@@ -151,7 +151,7 @@ export default {
         async beforeNext() {
             this.options.setLoadingStatus(true);
             try {
-                const plugin = wwLib.wwPlugins.pluginSpreadsheet;
+                const plugin = wwLib.wwPlugins.pluginGoogleSheets;
                 plugin.settings = await wwLib.wwPlugin.saveSettings(
                     plugin.id,
                     plugin.settings.id,
@@ -181,12 +181,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.ww-popup-spreadsheet-configuration {
+.ww-popup-google-sheets-configuration {
     position: relative;
     display: flex;
     flex-direction: column;
     padding: var(--ww-spacing-03) 0;
-    .spreadsheet-configuration {
+    .google-sheets-configuration {
         &__label {
             display: flex;
             align-items: center;

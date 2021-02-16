@@ -1,12 +1,12 @@
 <template>
-    <div class="ww-popup-spreadsheet-sheets">
-        <button class="spreadsheet-sheets__all ww-editor-button -primary" @click="addSheet">Add sheet</button>
-        <div class="spreadsheet-sheets__row" v-for="(sheet, index) in settings.privateData.sheets" :key="index">
+    <div class="ww-popup-google-sheets-sheets">
+        <button class="google-sheets-sheets__all ww-editor-button -primary" @click="addSheet">Add sheet</button>
+        <div class="google-sheets-sheets__row" v-for="(sheet, index) in settings.privateData.sheets" :key="index">
             <div class="paragraph-m">{{ sheet.name }}</div>
             <button class="ww-editor-button -secondary -small m-auto-left" @click="editSheet(index, sheet)">
                 Edit
             </button>
-            <div class="spreadsheet-sheets__button-delete m-left" @click="deleteSheet(index)">
+            <div class="google-sheets-sheets__button-delete m-left" @click="deleteSheet(index)">
                 <wwEditorIcon name="delete" small />
             </div>
         </div>
@@ -41,7 +41,7 @@ export default {
         async addSheet() {
             try {
                 const result = await wwLib.wwPopups.open({
-                    firstPage: 'SPREADSHEET_ADD_SHEET_POPUP',
+                    firstPage: 'GOOGLE_SHEETS_ADD_SHEET_POPUP',
                     data: { settings: this.settings },
                 });
                 this.settings.privateData.sheets.push(result.sheet);
@@ -52,7 +52,7 @@ export default {
         async editSheet(index, sheet) {
             try {
                 const result = await wwLib.wwPopups.open({
-                    firstPage: 'SPREADSHEET_EDIT_SHEET_POPUP',
+                    firstPage: 'GOOGLE_SHEETS_EDIT_SHEET_POPUP',
                     data: { settings: this.settings, sheet },
                 });
                 this.settings.privateData.sheets.splice(index, 1, result.sheet);
@@ -66,7 +66,7 @@ export default {
         async beforeNext() {
             this.options.setLoadingStatus(true);
             try {
-                const plugin = wwLib.wwPlugins.pluginSpreadsheet;
+                const plugin = wwLib.wwPlugins.pluginGoogleSheets;
                 plugin.settings = await wwLib.wwPlugin.saveSettings(
                     plugin.id,
                     plugin.settings.id,
@@ -79,7 +79,7 @@ export default {
                 const deletedSheets = oldSheets.filter(sheet => !newSheets.find(elem => elem.id === sheet.id));
                 deletedSheets.forEach(sheet => wwLib.wwPlugin.deleteCmsDataSet(sheet.id));
 
-                wwLib.wwPlugins.pluginSpreadsheet.settings = plugin.settings;
+                wwLib.wwPlugins.pluginGoogleSheets.settings = plugin.settings;
                 this.options.data.settings = plugin.settings;
             } catch (err) {
                 wwLib.wwLog.error(err);
@@ -95,12 +95,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.ww-popup-spreadsheet-sheets {
+.ww-popup-google-sheets-sheets {
     position: relative;
     display: flex;
     flex-direction: column;
     padding: var(--ww-spacing-03) 0;
-    .spreadsheet-sheets {
+    .google-sheets-sheets {
         &__all {
             margin: 0 auto var(--ww-spacing-02) auto;
         }

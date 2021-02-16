@@ -1,10 +1,14 @@
 <template>
-    <div class="ww-popup-spreadsheet-sync">
-        <button class="spreadsheet-sync__all ww-editor-button -primary -green" @click="syncAll" :disabled="isFetching">
+    <div class="ww-popup-google-sheets-sync">
+        <button
+            class="google-sheets-sync__all ww-editor-button -primary -green"
+            @click="syncAll"
+            :disabled="isFetching"
+        >
             <div v-if="!isFetching">Synchronize all</div>
             <div v-else>Fetching...</div>
         </button>
-        <div class="spreadsheet-sync__row" v-for="(sheet, index) in settings.privateData.sheets" :key="index">
+        <div class="google-sheets-sync__row" v-for="(sheet, index) in settings.privateData.sheets" :key="index">
             <div class="paragraph-m">{{ sheet.name }}</div>
             <div class="caption-m m-auto-left">
                 <template v-if="!isSheetFetching(sheet)">
@@ -23,7 +27,7 @@
                 <div v-else>Fetching...</div>
             </button>
         </div>
-        <div class="spreadsheet-sync__separator"></div>
+        <div class="google-sheets-sync__separator"></div>
     </div>
 </template>
 
@@ -83,7 +87,7 @@ export default {
                     sheet.id,
                     sheet.name,
                     sheet.displayBy,
-                    'Spreadsheet'
+                    'GoogleSheets'
                 );
 
                 wwLib.wwNotification.open({
@@ -117,12 +121,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.ww-popup-spreadsheet-sync {
+.ww-popup-google-sheets-sync {
     position: relative;
     display: flex;
     flex-direction: column;
     padding: var(--ww-spacing-03) 0;
-    .spreadsheet-sync {
+    .google-sheets-sync {
         &__all {
             margin: 0 auto var(--ww-spacing-02) auto;
         }

@@ -1,36 +1,36 @@
 <template>
-    <div class="ww-popup-spreadsheet-sheet">
-        <label class="spreadsheet-sheet__label caption-s" for="name-sheet">
+    <div class="ww-popup-google-sheets-sheet">
+        <label class="google-sheets-sheet__label caption-s" for="name-sheet">
             Name
-            <div class="spreadsheet-sheet__label-required">required</div>
+            <div class="google-sheets-sheet__label-required">required</div>
         </label>
         <wwEditorSelect
-            class="spreadsheet-sheet__input"
+            class="google-sheets-sheet__input"
             :options="allSheets"
             v-model="sheet.name"
             placeholder="Select a sheet"
             large
         />
-        <label class="spreadsheet-sheet__label caption-s" for="dimension-sheet">
+        <label class="google-sheets-sheet__label caption-s" for="dimension-sheet">
             Dimension
-            <div class="spreadsheet-sheet__label-required">required</div>
+            <div class="google-sheets-sheet__label-required">required</div>
         </label>
         <wwEditorSelect
-            class="spreadsheet-sheet__input"
+            class="google-sheets-sheet__input"
             :options="dimensionsOptions"
             v-model="sheet.dimensions"
             placeholder="Select a dimension"
             large
             :disabled="!sheet.spreadsheetId"
         />
-        <label class="spreadsheet-sheet__label caption-s" for="display-by-sheet">
+        <label class="google-sheets-sheet__label caption-s" for="display-by-sheet">
             Display by
-            <div class="spreadsheet-sheet__label-required">optional</div>
+            <div class="google-sheets-sheet__label-required">optional</div>
         </label>
         <input
             type="text"
             name="display-by-sheet"
-            class="spreadsheet-sheet__input caption-m ww-editor-input -large"
+            class="google-sheets-sheet__input caption-m ww-editor-input -large"
             :placeholder="'Enter a value in ' + (sheet.dimensions === 'ROWS' ? 'row 1' : 'column A')"
             v-model="sheet.displayBy"
         />
@@ -87,7 +87,7 @@ export default {
                     query: GET_GOOGLE_SPREADSHEET_META,
                     variables: {
                         designId: wwLib.wwWebsiteData.getDesign().info.id,
-                        pluginId: wwLib.wwPlugins.pluginSpreadsheet.id,
+                        pluginId: wwLib.wwPlugins.pluginGoogleSheets.id,
                         settingsId: this.settings.id,
                         spreadsheetId: this.settings.privateData.spreadsheetId,
                     },
@@ -125,12 +125,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.ww-popup-spreadsheet-sheet {
+.ww-popup-google-sheets-sheet {
     position: relative;
     display: flex;
     flex-direction: column;
     padding: var(--ww-spacing-03) 0;
-    .spreadsheet-sheet {
+    .google-sheets-sheet {
         &__label {
             display: flex;
             align-items: center;

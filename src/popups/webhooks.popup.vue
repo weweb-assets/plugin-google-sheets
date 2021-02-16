@@ -1,6 +1,6 @@
 <template>
-    <div class="ww-popup-spreadsheet-webhooks">
-        <div class="spreadsheet-webhooks__row" v-for="(sheet, index) in settings.privateData.sheets" :key="index">
+    <div class="ww-popup-google-sheets-webhooks">
+        <div class="google-sheets-webhooks__row" v-for="(sheet, index) in settings.privateData.sheets" :key="index">
             <div class="paragraph-m">{{ sheet.name }}</div>
             <button class="ww-editor-button -primary -green -small m-auto-left" @click="copyCode(sheet)">
                 <wwEditorIcon class="ww-editor-button-icon -left" name="copy-paste" small />
@@ -61,12 +61,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.ww-popup-spreadsheet-webhooks {
+.ww-popup-google-sheets-webhooks {
     position: relative;
     display: flex;
     flex-direction: column;
     padding: var(--ww-spacing-03) 0;
-    .spreadsheet-webhooks {
+    .google-sheets-webhooks {
         &__row {
             display: flex;
             align-items: center;

@@ -1,34 +1,34 @@
 <template>
-    <div class="ww-popup-spreadsheet-settings">
-        <div class="spreadsheet-settings__properties" @click="next('SPREADSHEET_SYNCHRONIZATION_POPUP')">
-            <wwEditorIcon class="spreadsheet-settings__properties-icon -left" name="download" />
-            <div class="spreadsheet-settings__properties-name paragraph-s">Synchronisation</div>
-            <wwEditorIcon class="spreadsheet-settings__properties-icon -right" name="chevron-forward" />
+    <div class="ww-popup-google-sheets-settings">
+        <div class="google-sheets-settings__properties" @click="next('GOOGLE_SHEETS_SYNCHRONIZATION_POPUP')">
+            <wwEditorIcon class="google-sheets-settings__properties-icon -left" name="download" />
+            <div class="google-sheets-settings__properties-name paragraph-s">Synchronisation</div>
+            <wwEditorIcon class="google-sheets-settings__properties-icon -right" name="chevron-forward" />
         </div>
-        <div class="spreadsheet-settings__properties" @click="next('SPREADSHEET_WEBHOOKS_POPUP')">
-            <wwEditorIcon class="spreadsheet-settings__properties-icon -left" name="copy-paste" />
-            <div class="spreadsheet-settings__properties-name paragraph-s">Webhooks</div>
-            <wwEditorIcon class="spreadsheet-settings__properties-icon -right" name="chevron-forward" />
+        <div class="google-sheets-settings__properties" @click="next('GOOGLE_SHEETS_WEBHOOKS_POPUP')">
+            <wwEditorIcon class="google-sheets-settings__properties-icon -left" name="copy-paste" />
+            <div class="google-sheets-settings__properties-name paragraph-s">Webhooks</div>
+            <wwEditorIcon class="google-sheets-settings__properties-icon -right" name="chevron-forward" />
         </div>
-        <div class="spreadsheet-settings__properties" @click="next('SPREADSHEET_SHEETS_POPUP')">
-            <wwEditorIcon class="spreadsheet-settings__properties-icon -left" name="bind" />
-            <div class="spreadsheet-settings__properties-name paragraph-s">Sheets</div>
-            <wwEditorIcon class="spreadsheet-settings__properties-icon -right" name="chevron-forward" />
+        <div class="google-sheets-settings__properties" @click="next('GOOGLE_SHEETS_SHEETS_POPUP')">
+            <wwEditorIcon class="google-sheets-settings__properties-icon -left" name="bind" />
+            <div class="google-sheets-settings__properties-name paragraph-s">Sheets</div>
+            <wwEditorIcon class="google-sheets-settings__properties-icon -right" name="chevron-forward" />
         </div>
-        <div class="spreadsheet-settings__properties" @click="next('SPREADSHEET_CONFIGURATION_POPUP')">
-            <wwEditorIcon class="spreadsheet-settings__properties-icon -left" name="advanced" />
-            <div class="spreadsheet-settings__properties-name paragraph-s">Configuration</div>
-            <wwEditorIcon class="spreadsheet-settings__properties-icon -right" name="chevron-forward" />
+        <div class="google-sheets-settings__properties" @click="next('GOOGLE_SHEETS_CONFIGURATION_POPUP')">
+            <wwEditorIcon class="google-sheets-settings__properties-icon -left" name="advanced" />
+            <div class="google-sheets-settings__properties-name paragraph-s">Configuration</div>
+            <wwEditorIcon class="google-sheets-settings__properties-icon -right" name="chevron-forward" />
         </div>
-        <a class="spreadsheet-settings__properties" href="//developer.weweb.io/" target="_blank">
-            <wwEditorIcon class="spreadsheet-settings__properties-icon -left" name="comment" />
-            <div class="spreadsheet-settings__properties-name paragraph-s">Documentation</div>
-            <wwEditorIcon class="spreadsheet-settings__properties-icon -right" name="chevron-forward" />
+        <a class="google-sheets-settings__properties" href="//developer.weweb.io/" target="_blank">
+            <wwEditorIcon class="google-sheets-settings__properties-icon -left" name="comment" />
+            <div class="google-sheets-settings__properties-name paragraph-s">Documentation</div>
+            <wwEditorIcon class="google-sheets-settings__properties-icon -right" name="chevron-forward" />
         </a>
-        <div class="spreadsheet-settings__delete-zone danger-zone">
-            <span class="spreadsheet-settings__delete-zone-label">DANGER ZONE</span>
+        <div class="google-sheets-settings__delete-zone danger-zone">
+            <span class="google-sheets-settings__delete-zone-label">DANGER ZONE</span>
             <button
-                class="spreadsheet-settings__delete-zone-button ww-editor-button -primary -red -small"
+                class="google-sheets-settings__delete-zone-button ww-editor-button -primary -red -small"
                 @click="deletePlugin"
             >
                 Delete plugin
@@ -109,12 +109,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.ww-popup-spreadsheet-settings {
+.ww-popup-google-sheets-settings {
     position: relative;
     display: flex;
     flex-direction: column;
     padding: var(--ww-spacing-03) 0;
-    .spreadsheet-settings {
+    .google-sheets-settings {
         &__input {
             margin-bottom: var(--ww-spacing-03);
         }

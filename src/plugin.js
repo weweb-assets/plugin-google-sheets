@@ -24,7 +24,7 @@ export default {
     \================================================================================================*/
     async init() {
         /* wwEditor:start */
-        const plugin = wwLib.wwPlugins.pluginSpreadsheet;
+        const plugin = wwLib.wwPlugins.pluginGoogleSheets;
         if (plugin.id) plugin.settings = (await wwLib.wwPlugin.getSettings(plugin.id)) || this.settings;
         /* wwEditor:end */
     },
@@ -34,9 +34,9 @@ export default {
     \================================================================================================*/
     async sidebarButton() {
         try {
-            const { id, settings } = wwLib.wwPlugins.pluginSpreadsheet;
+            const { id, settings } = wwLib.wwPlugins.pluginGoogleSheets;
             await wwLib.wwPopups.open({
-                firstPage: settings.privateData.token ? 'SPREADSHEET_POPUP' : 'SPREADSHEET_CONFIGURATION_POPUP',
+                firstPage: settings.privateData.token ? 'GOOGLE_SHEETS_POPUP' : 'GOOGLE_SHEETS_CONFIGURATION_POPUP',
                 data: {
                     pluginId: id,
                     settings,
