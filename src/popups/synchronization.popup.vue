@@ -15,7 +15,7 @@
                     <template v-if="getSource(sheet).lastSyncDate">
                         {{ getSource(sheet).lastSyncDate | dateFromNow }}
                     </template>
-                    <template v-else>Sheet never synchronized</template>
+                    <template v-else>never synchronized</template>
                 </template>
             </div>
             <button
