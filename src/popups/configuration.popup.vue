@@ -69,7 +69,7 @@ export default {
     },
     watch: {
         'settings.privateData.spreadsheetId'() {
-            this.getSpreadsheetMeta();
+            if (this.settings.privateData.spreadsheetId.length) this.getSpreadsheetMeta();
         },
         isSetup() {
             this.options.setButtonState('SAVE', this.isSetup ? 'ok' : 'disabled');
