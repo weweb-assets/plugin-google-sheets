@@ -29,7 +29,12 @@ export default {
         if (!plugin.settings.privateData.spreadsheetId) plugin.settings.privateData.spreadsheetId = '';
         if (!plugin.settings.privateData.name) plugin.settings.privateData.name = '';
         if (!plugin.settings.privateData.sheets) plugin.settings.privateData.sheets = [];
-        if (!plugin.settings.privateData.token) {
+        if (
+            !plugin.settings.privateData.token ||
+            !plugin.settings.privateData.url.length ||
+            !plugin.settings.privateData.spreadsheetId.length ||
+            !plugin.settings.privateData.name.length
+        ) {
             this.sidebarButton();
         }
         /* wwEditor:end */
@@ -41,9 +46,14 @@ export default {
     async sidebarButton() {
         try {
             const { id, settings } = wwLib.wwPlugins.pluginGoogleSheets;
-            const isFirstTime = !settings.privateData.token;
+            const isSetup =
+                !settings.privateData.token ||
+                !settings.privateData.url.length ||
+                !settings.privateData.spreadsheetId.length ||
+                !settings.privateData.name.length;
+            const isFirstTime = !settings.privateData.sheets.length;
             await wwLib.wwPopups.open({
-                firstPage: settings.privateData.token ? 'GOOGLE_SHEETS_POPUP' : 'GOOGLE_SHEETS_CONFIGURATION_POPUP',
+                firstPage: isSetup ? 'GOOGLE_SHEETS_POPUP' : 'GOOGLE_SHEETS_CONFIGURATION_POPUP',
                 data: {
                     isFirstTime,
                     pluginId: id,
