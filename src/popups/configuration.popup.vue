@@ -63,13 +63,7 @@ export default {
             isKeyHidden: true,
             profile: undefined,
             settings: {
-                privateData: {
-                    token: undefined,
-                    url: undefined,
-                    spreadsheetId: undefined,
-                    name: undefined,
-                    sheets: [],
-                },
+                privateData: {},
             },
         };
     },
@@ -77,8 +71,13 @@ export default {
         'settings.privateData.spreadsheetId'() {
             this.getSpreadsheetMeta();
         },
-        'settings.privateData.name'() {
-            this.options.setButtonState('SAVE', this.settings.privateData.name ? 'ok' : 'disabled');
+        isSetup() {
+            this.options.setButtonState('SAVE', this.isSetup ? 'ok' : 'disabled');
+        },
+    },
+    computed: {
+        isSetup() {
+            return !!this.settings.privateData.name && !!this.settings.privateData.name.length;
         },
     },
     methods: {
@@ -164,15 +163,15 @@ export default {
             this.options.setLoadingStatus(false);
         },
     },
-    created() {
-        this.settings = this.options.data.settings || this.settings;
-        this.options.result.settings = this.settings;
-    },
     async mounted() {
-        this.options.setButtonState('SAVE', this.settings.privateData.name ? 'ok' : 'disabled');
         this.options.setLoadingStatus(true);
         await this.getProfile();
         this.options.setLoadingStatus(false);
+    },
+    created() {
+        this.settings = this.options.data.settings || this.settings;
+        this.options.result.settings = this.settings;
+        this.options.setButtonState('SAVE', this.isSetup ? 'ok' : 'disabled');
     },
     beforeDestroy() {
         clearInterval(this.interval);

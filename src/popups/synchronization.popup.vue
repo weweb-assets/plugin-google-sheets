@@ -54,13 +54,7 @@ export default {
             isFetching: false,
             sheetsFetching: [],
             settings: {
-                privateData: {
-                    token: undefined,
-                    url: undefined,
-                    spreadsheetId: undefined,
-                    name: undefined,
-                    sheets: [],
-                },
+                privateData: {},
             },
         };
     },
@@ -115,7 +109,7 @@ export default {
         },
     },
     created() {
-        this.settings = _.cloneDeep(this.options.data.settings || this.settings);
+        this.settings = this.options.data.settings;
     },
 };
 </script>

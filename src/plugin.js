@@ -8,7 +8,6 @@ export default {
         Data
     \================================================================================================*/
     settings: {
-        id: wwLib.wwUtils.getUid(),
         data: {},
         privateData: {
             token: undefined,
@@ -26,6 +25,10 @@ export default {
         /* wwEditor:start */
         const plugin = wwLib.wwPlugins.pluginGoogleSheets;
         if (plugin.id) plugin.settings = (await wwLib.wwPlugin.getSettings(plugin.id)) || this.settings;
+        if (!plugin.settings.privateData.sheets) plugin.settings.privateData.sheets = [];
+        if (!plugin.settings.privateData.token) {
+            this.sidebarButton();
+        }
         /* wwEditor:end */
     },
     /* wwEditor:start */
@@ -38,6 +41,7 @@ export default {
             await wwLib.wwPopups.open({
                 firstPage: settings.privateData.token ? 'GOOGLE_SHEETS_POPUP' : 'GOOGLE_SHEETS_CONFIGURATION_POPUP',
                 data: {
+                    isFirstTime: !settings.privateData.token,
                     pluginId: id,
                     settings,
                 },

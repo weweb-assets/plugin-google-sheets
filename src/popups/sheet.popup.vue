@@ -58,13 +58,7 @@ export default {
             ],
             allSheets: [],
             settings: {
-                privateData: {
-                    token: undefined,
-                    url: undefined,
-                    spreadsheetId: undefined,
-                    name: undefined,
-                    sheets: [],
-                },
+                privateData: {},
             },
             sheet: {
                 id: wwLib.wwUtils.getUid(),
@@ -75,8 +69,13 @@ export default {
         };
     },
     watch: {
-        'sheet.name'() {
-            this.options.setButtonState('SAVE', this.sheet.name ? 'ok' : 'disabled');
+        isSetup() {
+            this.options.setButtonState('SAVE', this.isSetup ? 'ok' : 'disabled');
+        },
+    },
+    computed: {
+        isSetup() {
+            return !!this.sheet.name;
         },
     },
     methods: {
@@ -111,15 +110,14 @@ export default {
             this.options.setLoadingStatus(false);
         },
     },
-
+    mounted() {
+        this.getSpreadsheetMeta();
+    },
     created() {
         this.settings = this.options.data.settings || this.settings;
         this.sheet = this.options.data.sheet || this.sheet;
         this.options.result.sheet = this.sheet;
-        this.options.setButtonState('SAVE', this.sheet.name ? 'ok' : 'disabled');
-    },
-    mounted() {
-        this.getSpreadsheetMeta();
+        this.options.setButtonState('SAVE', this.isSetup ? 'ok' : 'disabled');
     },
 };
 </script>

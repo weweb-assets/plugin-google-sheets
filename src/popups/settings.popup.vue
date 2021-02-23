@@ -51,15 +51,7 @@ export default {
     data() {
         return {
             pluginId: undefined,
-            settings: {
-                privateData: {
-                    token: undefined,
-                    url: undefined,
-                    spreadsheetId: undefined,
-                    name: undefined,
-                    sheets: [],
-                },
-            },
+            settings: {},
         };
     },
     methods: {
