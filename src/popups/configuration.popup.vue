@@ -26,7 +26,7 @@
                 v-model="settings.privateData.url"
                 @input="setSpreadsheetId"
             />
-            <template v-if="settings.privateData.name">
+            <template v-if="isSetup">
                 <label class="google-sheets-configuration__label caption-s" for="name-google-sheets">
                     Name
                     <div class="google-sheets-configuration__label-required">optional</div>
@@ -77,7 +77,8 @@ export default {
     },
     computed: {
         isSetup() {
-            return !!this.settings.privateData.name && !!this.settings.privateData.name.length;
+            const { url, spreadsheetId, name } = this.settings.privateData;
+            return url && url.length && spreadsheetId && spreadsheetId.length && name && name.length;
         },
     },
     methods: {
@@ -120,6 +121,7 @@ export default {
         async getSpreadsheetMeta() {
             this.options.setLoadingStatus(true);
             try {
+                this.settings.privateData.name = '';
                 const { data } = await wwLib.$apollo.query({
                     query: GET_GOOGLE_SPREADSHEET_META,
                     variables: {
