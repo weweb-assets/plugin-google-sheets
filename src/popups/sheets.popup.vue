@@ -38,7 +38,7 @@ export default {
     },
     computed: {
         isSetup() {
-            return this.settings.privateData.tables && this.settings.privateData.tables.length;
+            return this.settings.privateData.sheets && this.settings.privateData.sheets.length;
         },
     },
     methods: {
