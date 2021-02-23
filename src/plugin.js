@@ -41,10 +41,11 @@ export default {
     async sidebarButton() {
         try {
             const { id, settings } = wwLib.wwPlugins.pluginGoogleSheets;
+            const isFirstTime = !settings.privateData.token;
             await wwLib.wwPopups.open({
                 firstPage: settings.privateData.token ? 'GOOGLE_SHEETS_POPUP' : 'GOOGLE_SHEETS_CONFIGURATION_POPUP',
                 data: {
-                    isFirstTime: !settings.privateData.token,
+                    isFirstTime,
                     pluginId: id,
                     settings,
                 },
