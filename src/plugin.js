@@ -47,10 +47,10 @@ export default {
         try {
             const { id, settings } = wwLib.wwPlugins.pluginGoogleSheets;
             const isSetup =
-                !settings.privateData.token ||
-                !settings.privateData.url.length ||
-                !settings.privateData.spreadsheetId.length ||
-                !settings.privateData.name.length;
+                settings.privateData.token &&
+                settings.privateData.url.length &&
+                settings.privateData.spreadsheetId.length &&
+                settings.privateData.name.length;
             const isFirstTime = !settings.privateData.sheets.length;
             await wwLib.wwPopups.open({
                 firstPage: isSetup ? 'GOOGLE_SHEETS_POPUP' : 'GOOGLE_SHEETS_CONFIGURATION_POPUP',
