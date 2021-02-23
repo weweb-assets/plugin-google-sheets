@@ -64,8 +64,8 @@ export default {
                 wwLib.wwLog.error(err);
             }
         },
-        deleteSheet(index) {
-             const confirm = await wwLib.wwModals.open({
+        async deleteSheet(index) {
+            const confirm = await wwLib.wwModals.open({
                 title: {
                     en: 'Delete data source?',
                     fr: 'Supprimer la source de données?',
