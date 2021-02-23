@@ -25,6 +25,9 @@ export default {
         /* wwEditor:start */
         const plugin = wwLib.wwPlugins.pluginGoogleSheets;
         if (plugin.id) plugin.settings = (await wwLib.wwPlugin.getSettings(plugin.id)) || this.settings;
+        if (!plugin.settings.privateData.url) plugin.settings.privateData.url = '';
+        if (!plugin.settings.privateData.spreadsheetId) plugin.settings.privateData.spreadsheetId = '';
+        if (!plugin.settings.privateData.name) plugin.settings.privateData.name = '';
         if (!plugin.settings.privateData.sheets) plugin.settings.privateData.sheets = [];
         if (!plugin.settings.privateData.token) {
             this.sidebarButton();
