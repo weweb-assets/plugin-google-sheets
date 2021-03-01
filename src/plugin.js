@@ -30,10 +30,11 @@ export default {
         if (!plugin.settings.privateData.name) plugin.settings.privateData.name = '';
         if (!plugin.settings.privateData.sheets) plugin.settings.privateData.sheets = [];
         if (
-            !plugin.settings.privateData.token ||
-            !plugin.settings.privateData.url.length ||
-            !plugin.settings.privateData.spreadsheetId.length ||
-            !plugin.settings.privateData.name.length
+            plugin.isNew &&
+            (!plugin.settings.privateData.token ||
+                !plugin.settings.privateData.url.length ||
+                !plugin.settings.privateData.spreadsheetId.length ||
+                !plugin.settings.privateData.name.length)
         ) {
             this.sidebarButton();
         }
