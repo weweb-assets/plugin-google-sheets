@@ -61,8 +61,8 @@ export default {
         async deletePlugin() {
             const confirm = await wwLib.wwModals.open({
                 title: {
-                    en: 'Delete plugin Spreadsheet?',
-                    fr: 'Supprimer le plugin Spreadsheet?',
+                    en: 'Delete plugin Google Sheet?',
+                    fr: 'Supprimer le plugin Google Sheet ?',
                 },
                 text: {
                     en: 'Are you sure you want to delete the plugin from your website?',

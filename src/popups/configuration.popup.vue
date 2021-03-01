@@ -41,6 +41,15 @@
                 />
             </template>
         </template>
+        <div class="google-sheets-configuration__delete-zone danger-zone">
+            <span class="google-sheets-configuration__delete-zone-label">DANGER ZONE</span>
+            <button
+                class="google-sheets-configuration__delete-zone-button ww-editor-button -primary -red -small"
+                @click="deletePlugin"
+            >
+                Delete plugin
+            </button>
+        </div>
     </div>
 </template>
 
@@ -149,6 +158,41 @@ export default {
             const found = spreadsheetIdRegex.exec(this.settings.privateData.url);
             this.settings.privateData.spreadsheetId = found && found[1];
         },
+        async deletePlugin() {
+            const plugin = wwLib.wwPlugins.pluginGoogleSheets;
+            const confirm = await wwLib.wwModals.open({
+                title: {
+                    en: 'Delete plugin Google Sheet?',
+                    fr: 'Supprimer le plugin Google Sheet ?',
+                },
+                text: {
+                    en: 'Are you sure you want to delete the plugin from your website?',
+                    fr: 'Voulez-vous vraiment supprimer le plugin de votre site ?',
+                },
+                buttons: [
+                    {
+                        text: {
+                            en: 'Cancel',
+                            fr: 'Annuler',
+                        },
+                        color: '-secondary',
+                        value: false,
+                        escape: true,
+                    },
+                    {
+                        text: {
+                            en: 'Delete',
+                            fr: 'Supprimer',
+                        },
+                        color: '-primary -red',
+                        value: true,
+                        enter: true,
+                    },
+                ],
+            });
+            if (!confirm) return;
+            await wwLib.wwPlugin.deleteDesignPlugin(plugin.id);
+        },
         async beforeNext() {
             this.options.setLoadingStatus(true);
             try {
@@ -216,6 +260,18 @@ export default {
         }
         &__radio-label {
             margin-left: var(--ww-spacing-02);
+        }
+        &__delete-zone {
+            margin-top: auto;
+            &-label {
+                width: 100%;
+                font-size: var(--ww-font-size-04);
+                color: var(--ww-color-red-500);
+            }
+            &-button {
+                margin-top: var(--ww-spacing-02);
+                margin-right: var(--ww-spacing-02);
+            }
         }
     }
     .m-auto-left {
