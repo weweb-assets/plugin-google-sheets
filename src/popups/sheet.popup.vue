@@ -12,7 +12,7 @@
             large
         />
         <label class="google-sheets-sheet__label caption-s" for="dimension-sheet">
-            Dimension
+            Titles are in
             <div class="google-sheets-sheet__label-required">required</div>
         </label>
         <wwEditorSelect
@@ -23,6 +23,12 @@
             large
             :disabled="!sheet.spreadsheetId"
         />
+        <img
+            class="google-sheets-sheet__dimension-preview"
+            v-if="sheet.dimensions === 'COLUMNS'"
+            src="../images/google_sheets_columns.png"
+        />
+        <img class="google-sheets-sheet__dimension-preview" v-else src="../images/google_sheets_rows.png" />
         <label class="google-sheets-sheet__label caption-s" for="display-by-sheet">
             Display by
             <div class="google-sheets-sheet__label-required">optional</div>
@@ -53,8 +59,8 @@ export default {
     data() {
         return {
             dimensionsOptions: [
-                { value: 'ROWS', label: 'Rows', default: true },
-                { value: 'COLUMNS', label: 'Columns' },
+                { value: 'ROWS', label: 'First row', default: true },
+                { value: 'COLUMNS', label: 'First column' },
             ],
             allSheets: [],
             settings: {
@@ -102,7 +108,7 @@ export default {
                 wwLib.wwLog.error(err);
                 wwLib.wwNotification.open({
                     text: {
-                        en: "The spreadsheet coun't be found",
+                        en: "The spreadsheet couldn't be found",
                     },
                     color: 'red',
                 });
@@ -158,6 +164,12 @@ export default {
                 justify-content: space-between;
                 padding: 0 var(--ww-spacing-05);
             }
+        }
+        &__dimension-preview {
+            border: 1px solid var(--ww-color-blue-500);
+            border-radius: var(--ww-border-radius-01);
+            margin-bottom: var(--ww-spacing-03);
+            width: 60%;
         }
         &__button-delete {
             margin-right: var(--ww-spacing-03);
