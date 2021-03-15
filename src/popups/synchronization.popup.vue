@@ -75,31 +75,7 @@ export default {
         },
         async sync(sheet) {
             this.sheetFetching(sheet, true);
-            try {
-                await wwLib.wwPlugin.saveCmsDataSet(
-                    this.settings.id,
-                    sheet.id,
-                    sheet.name,
-                    sheet.displayBy,
-                    'GoogleSheets'
-                );
-
-                wwLib.wwNotification.open({
-                    text: {
-                        en: `Sheet "${sheet.name}" succesfully fetched`,
-                    },
-                    color: 'green',
-                });
-            } catch (err) {
-                wwLib.wwNotification.open({
-                    text: {
-                        en: 'An error occured, please try again later.',
-                        fr: 'Une erreur est survenue. Veuillez réessayer plus tard.',
-                    },
-                    color: 'red',
-                });
-                wwLib.wwLog.error(err);
-            }
+            await wwLib.wwPlugins.pluginGoogleSheets.sync(sheet);
             this.sheetFetching(sheet, false);
         },
         async syncAll() {

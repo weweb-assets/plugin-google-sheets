@@ -42,6 +42,39 @@ export default {
     },
     /* wwEditor:start */
     /*=============================================m_ÔÔ_m=============================================\
+        SYNCHRONIZE
+    \================================================================================================*/
+    async sync(sheet) {
+        try {
+            await wwLib.wwPlugin.saveCmsDataSet(
+                this.settings.id,
+                sheet.id,
+                sheet.name,
+                sheet.displayBy,
+                'GoogleSheets'
+            );
+
+            wwLib.wwNotification.open({
+                text: {
+                    en: `Sheet "${sheet.name}" succesfully fetched`,
+                },
+                color: 'green',
+            });
+        } catch (err) {
+            wwLib.wwNotification.open({
+                text: {
+                    en: 'An error occured, please try again later.',
+                    fr: 'Une erreur est survenue. Veuillez réessayer plus tard.',
+                },
+                color: 'red',
+            });
+            wwLib.wwLog.error(err);
+        }
+    },
+    async syncAll() {
+        for (const sheet of this.settings.privateData.sheets) await this.sync(sheet);
+    },
+    /*=============================================m_ÔÔ_m=============================================\
         SIDEBAR POPUP
     \================================================================================================*/
     async sidebarButton() {
