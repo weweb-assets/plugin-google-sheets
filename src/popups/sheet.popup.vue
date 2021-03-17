@@ -26,9 +26,13 @@
         <img
             class="google-sheets-sheet__dimension-preview"
             v-if="sheet.dimensions === 'COLUMNS'"
-            src="../images/google_sheets_columns.png"
+            src="https://cdn.weweb.io/public/images/google_sheets_columns.png"
         />
-        <img class="google-sheets-sheet__dimension-preview" v-else src="../images/google_sheets_rows.png" />
+        <img
+            class="google-sheets-sheet__dimension-preview"
+            v-else
+            src="https://cdn.weweb.io/public/images/google_sheets_rows.png"
+        />
         <label class="google-sheets-sheet__label caption-s" for="display-by-sheet">
             Display by
             <div class="google-sheets-sheet__label-required">optional</div>
