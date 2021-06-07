@@ -1,5 +1,5 @@
-<iframe src="https://www.youtube-nocookie.com/embed/76CMCIW-wGk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+Create, edit, and share spreadsheets wherever you are with [Google Sheets](https://www.google.com/sheets/about/).
 
-This plugin will add:
+This plugin will let you:
 
-Google Sheets as a collection source
+- Use Google Sheets as a collection source in WeWeb
