@@ -1,3 +1,4 @@
-<iframe src="https://www.youtube-nocookie.com/embed/76CMCIW-wGk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+# How to configure a Google Sheets collection
 
-Select a table from a base to fetch your data.
+1. Select the Sheet you want to use as source from your Spreadsheet
+2. Tell WeWeb if the titles in your Sheet are on the first line or the first row
