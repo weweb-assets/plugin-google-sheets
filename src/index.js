@@ -1,4 +1,3 @@
-import Vue from 'vue';
 /* wwEditor:start */
 import './components/SettingsEdit.vue';
 import './components/SettingsSummary.vue';
@@ -8,12 +7,6 @@ import { GET_GOOGLE_AUTHORIZE, GET_GOOGLE_PROFILE, GET_GOOGLE_SPREADSHEET_META }
 /* wwEditor:end */
 
 export default {
-    /*=============================================m_ÔÔ_m=============================================\
-        Plugin API
-    \================================================================================================*/
-    onLoad() {
-        Vue.prototype.$pluginGoogleSheets = this;
-    },
     /*=============================================m_ÔÔ_m=============================================\
         Collection API
     \================================================================================================*/
