@@ -5,7 +5,9 @@ module.exports = {
             edit: () => import('./src/components/SettingsEdit.vue'),
             summary: () => import('./src/components/SettingsSummary.vue'),
             getIsValid(settings) {
-                return !!settings.url && !!settings.spreadsheetId && !!settings.name;
+                return (
+                    !!settings.privateData.url && !!settings.privateData.spreadsheetId && !!settings.privateData.name
+                );
             },
         },
         collection: {
