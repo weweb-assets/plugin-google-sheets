@@ -8,22 +8,7 @@
 <script>
 export default {
     props: {
-        plugin: { type: Object, required: true },
         settings: { type: Object, required: true },
-    },
-    computed: {
-        isValid() {
-            const { url, spreadsheetId, name } = this.settings.privateData;
-            return url && spreadsheetId && name;
-        },
-    },
-    watch: {
-        isValid: {
-            immediate: true,
-            handler(value) {
-                this.$emit('update-is-valid', value);
-            },
-        },
     },
 };
 </script>

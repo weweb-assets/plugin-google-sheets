@@ -3,29 +3,29 @@
         <wwEditorFormRow label="Sheet" required>
             <wwEditorSelect
                 :options="allSheets"
-                :value="sheet.name"
-                @input="setProp('name', $event)"
+                :model-value="sheet.name"
                 placeholder="Select a sheet"
                 large
+                @update:modelValue="setProp('name', $event)"
             />
         </wwEditorFormRow>
         <wwEditorFormRow label="Titles are in" required>
             <wwEditorSelect
                 :options="dimensionsOptions"
-                :value="sheet.dimensions"
-                @input="setProp('dimensions', $event)"
+                :model-value="sheet.dimensions"
                 placeholder="Select a dimension"
                 large
+                @update:modelValue="setProp('dimensions', $event)"
             />
         </wwEditorFormRow>
         <img
-            class="g-sheets-collection-edit__dimension-preview"
             v-if="sheet.dimensions === 'COLUMNS'"
+            class="g-sheets-collection-edit__dimension-preview"
             src="https://cdn.weweb.io/public/images/google_sheets_columns.png"
         />
         <img
-            class="g-sheets-collection-edit__dimension-preview"
             v-else
+            class="g-sheets-collection-edit__dimension-preview"
             src="https://cdn.weweb.io/public/images/google_sheets_rows.png"
         />
         <wwLoader :loading="isSheetsLoading" />
@@ -38,6 +38,7 @@ export default {
         plugin: { type: Object, required: true },
         config: { type: Object, required: true },
     },
+    emits: ['update:config'],
     data() {
         return {
             allSheets: [],
@@ -48,18 +49,7 @@ export default {
             ],
         };
     },
-    watch: {
-        isSetup: {
-            immediate: true,
-            handler(value) {
-                this.$emit('update-is-valid', value);
-            },
-        },
-    },
     computed: {
-        isSetup() {
-            return !!this.sheet.name && !!this.sheet.dimensions;
-        },
         sheet() {
             return {
                 name: undefined,
@@ -68,9 +58,12 @@ export default {
             };
         },
     },
+    mounted() {
+        this.getSheets();
+    },
     methods: {
         setProp(key, value) {
-            this.$emit('update-config', { ...this.sheet, [key]: value });
+            this.$emit('update:config', { ...this.sheet, [key]: value });
         },
         async getSheets() {
             try {
@@ -89,9 +82,6 @@ export default {
                 this.isSheetsLoading = false;
             }
         },
-    },
-    mounted() {
-        this.getSheets();
     },
 };
 </script>

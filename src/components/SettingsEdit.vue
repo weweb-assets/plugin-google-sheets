@@ -2,7 +2,7 @@
     <div class="g-sheets-settings-edit">
         <template v-if="!profile">
             <wwEditorFormRow required label="Connection to Google">
-                <button class="ww-editor-button -primary" @click="authorize">Sign in</button>
+                <button type="button" class="ww-editor-button -primary" @click="authorize">Sign in</button>
             </wwEditorFormRow>
         </template>
         <template v-else>
@@ -10,7 +10,7 @@
                 <div class="g-sheets-settings-edit__row">
                     <img class="g-sheets-settings-edit__image" :src="profile.picture" alt="" width="30" height="30" />
                     <div class="caption-l m-left">{{ profile.name }}</div>
-                    <button class="ww-editor-button -primary -small m-auto-left" @click="authorize">
+                    <button type="button" class="ww-editor-button -primary -small m-auto-left" @click="authorize">
                         Switch account
                     </button>
                 </div>
@@ -20,18 +20,17 @@
                     type="text"
                     name="url"
                     placeholder="https://docs.google.com/spreadsheets/d/..."
-                    :value="settings.privateData.url"
-                    @input="setSpreadsheet"
-                    v-on:keyup.native.enter="$emit('save')"
+                    :model-value="settings.privateData.url"
                     large
+                    @update:modelValue="setSpreadsheet"
                 />
             </wwEditorFormRow>
-            <div class="caption-m" v-if="settings.privateData.url && !isLoading">
+            <div v-if="settings.privateData.url && !isLoading" class="caption-m">
                 Sheet name:
-                <span class="caption-m" v-if="settings.privateData.name">
+                <span v-if="settings.privateData.name" class="caption-m">
                     {{ settings.privateData.name }}
                 </span>
-                <span class="label-m" v-else>Sheet not found</span>
+                <span v-else class="label-m">Sheet not found</span>
             </div>
         </template>
         <wwLoader :loading="isLoading" />
@@ -44,6 +43,7 @@ export default {
         plugin: { type: Object, required: true },
         settings: { type: Object, required: true },
     },
+    emits: ['update:settings'],
     data() {
         return {
             profile: undefined,
@@ -51,19 +51,13 @@ export default {
             isLoading: false,
         };
     },
-    watch: {
-        isValid: {
-            immediate: true,
-            handler(value) {
-                this.$emit('update-is-valid', value);
-            },
-        },
+    async mounted() {
+        this.isLoading = true;
+        await this.getProfile();
+        this.isLoading = false;
     },
-    computed: {
-        isValid() {
-            const { url, spreadsheetId, name } = this.settings.privateData;
-            return url && spreadsheetId && name;
-        },
+    beforeUnmount() {
+        clearInterval(this.interval);
     },
     methods: {
         async authorize() {
@@ -104,7 +98,7 @@ export default {
             const spreadsheetIdRegex = new RegExp('/spreadsheets/d/([a-zA-Z0-9-_]+)');
             const found = spreadsheetIdRegex.exec(value);
             const spreadsheetId = found && found[1];
-            this.$emit('update-settings', {
+            this.$emit('update:settings', {
                 ...this.settings,
                 privateData: {
                     ...this.settings.privateData,
@@ -116,19 +110,11 @@ export default {
             if (spreadsheetId) this.getSpreadsheetMeta(spreadsheetId);
         },
         setPrivateProp(key, value) {
-            this.$emit('update-settings', {
+            this.$emit('update:settings', {
                 ...this.settings,
                 privateData: { ...this.settings.privateData, [key]: value },
             });
         },
-    },
-    async mounted() {
-        this.isLoading = true;
-        await this.getProfile();
-        this.isLoading = false;
-    },
-    beforeDestroy() {
-        clearInterval(this.interval);
     },
 };
 </script>
