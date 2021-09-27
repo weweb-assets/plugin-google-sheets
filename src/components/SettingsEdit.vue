@@ -16,7 +16,7 @@
                 </div>
             </wwEditorFormRow>
             <wwEditorFormRow label="Sheet URL" required>
-                <wwEditorFormInput
+                <wwEditorInputText
                     type="text"
                     name="url"
                     placeholder="https://docs.google.com/spreadsheets/d/..."

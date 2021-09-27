@@ -1,7 +1,7 @@
 <template>
     <div class="g-sheets-collection-edit">
         <wwEditorFormRow label="Sheet" required>
-            <wwEditorSelect
+            <wwEditorInputTextSelect
                 :options="allSheets"
                 :model-value="sheet.name"
                 placeholder="Select a sheet"
@@ -10,7 +10,7 @@
             />
         </wwEditorFormRow>
         <wwEditorFormRow label="Titles are in" required>
-            <wwEditorSelect
+            <wwEditorInputTextSelect
                 :options="dimensionsOptions"
                 :model-value="sheet.dimensions"
                 placeholder="Select a dimension"
