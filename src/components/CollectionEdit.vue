@@ -9,6 +9,14 @@
                 @update:modelValue="setProp('name', $event)"
             />
         </wwEditorFormRow>
+        <wwEditorFormRow label="Cells range">
+            <wwEditorInputText
+                :model-value="sheet.range"
+                placeholder="A1:Z1"
+                large
+                @update:modelValue="setProp('range', $event)"
+            />
+        </wwEditorFormRow>
         <wwEditorFormRow label="Titles are in" required>
             <wwEditorInputTextSelect
                 :options="dimensionsOptions"
@@ -54,6 +62,7 @@ export default {
             return {
                 name: undefined,
                 dimensions: 'ROWS',
+                range: '',
                 ...this.config,
             };
         },
