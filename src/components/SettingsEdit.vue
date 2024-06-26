@@ -122,7 +122,7 @@ export default {
 <style lang="scss" scoped>
 .g-sheets-settings-edit {
     &__link {
-        color: var(--ww-color-blue-500);
+        color: var(--ww-color-content-brand);
         margin-left: var(--ww-spacing-02);
     }
     &__row {
@@ -130,7 +130,7 @@ export default {
         align-items: center;
     }
     &__image {
-        border: 2px solid var(--ww-color-blue-500);
+        border: 2px solid var(--ww-color-content-brand);
         border-radius: 50%;
     }
     .m-auto-left {

@@ -100,7 +100,7 @@ export default {
     display: flex;
     flex-direction: column;
     &__dimension-preview {
-        border: 1px solid var(--ww-color-blue-500);
+        border: 1px solid var(--ww-color-border-brand);
         border-radius: var(--ww-border-radius-01);
         margin-bottom: var(--ww-spacing-03);
         width: 100%;
