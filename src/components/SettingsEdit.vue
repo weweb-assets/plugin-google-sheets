@@ -5,7 +5,7 @@
                 <button
                     type="button"
                     class="ww-editor-button -primary"
-                    :disabled="plugin.canConnect === false"
+                    :disabled="connectionDisabled"
                     @click="authorize"
                 >
                     Sign in
@@ -20,7 +20,7 @@
                     <button
                         type="button"
                         class="ww-editor-button -primary -small m-auto-left"
-                        :disabled="plugin.canConnect === false"
+                        :disabled="connectionDisabled"
                         @click="authorize"
                     >
                         Switch account
@@ -59,15 +59,22 @@ export default {
     data() {
         return {
             profile: undefined,
+            readingInitialProfile: true,
             interval: undefined,
             isLoading: false,
             connection: undefined,
             metaRevision: 0,
         };
     },
+    computed: {
+        connectionDisabled() {
+            return this.readingInitialProfile || this.plugin.canConnect === false;
+        },
+    },
     async mounted() {
         this.isLoading = true;
         await this.getProfile();
+        this.readingInitialProfile = false;
         this.isLoading = false;
     },
     beforeUnmount() {
@@ -77,7 +84,7 @@ export default {
     },
     methods: {
         async authorize() {
-            if (this.plugin.canConnect === false) return;
+            if (this.connectionDisabled) return;
             if (this.plugin.connect) {
                 this.connection?.abort();
                 const connection = new AbortController();
