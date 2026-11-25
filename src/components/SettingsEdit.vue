@@ -2,7 +2,14 @@
     <div class="g-sheets-settings-edit">
         <template v-if="!profile">
             <wwEditorFormRow required label="Connection to Google">
-                <button type="button" class="ww-editor-button -primary" @click="authorize">Sign in</button>
+                <button
+                    type="button"
+                    class="ww-editor-button -primary"
+                    :disabled="plugin.canConnect === false"
+                    @click="authorize"
+                >
+                    Sign in
+                </button>
             </wwEditorFormRow>
         </template>
         <template v-else>
@@ -10,7 +17,12 @@
                 <div class="g-sheets-settings-edit__row">
                     <img class="g-sheets-settings-edit__image" :src="profile.picture" alt="" width="30" height="30" />
                     <div class="caption-l m-left">{{ profile.name }}</div>
-                    <button type="button" class="ww-editor-button -primary -small m-auto-left" @click="authorize">
+                    <button
+                        type="button"
+                        class="ww-editor-button -primary -small m-auto-left"
+                        :disabled="plugin.canConnect === false"
+                        @click="authorize"
+                    >
                         Switch account
                     </button>
                 </div>
@@ -49,6 +61,8 @@ export default {
             profile: undefined,
             interval: undefined,
             isLoading: false,
+            connection: undefined,
+            metaRevision: 0,
         };
     },
     async mounted() {
@@ -57,10 +71,33 @@ export default {
         this.isLoading = false;
     },
     beforeUnmount() {
+        this.metaRevision++;
+        this.connection?.abort();
         clearInterval(this.interval);
     },
     methods: {
         async authorize() {
+            if (this.plugin.canConnect === false) return;
+            if (this.plugin.connect) {
+                this.connection?.abort();
+                const connection = new AbortController();
+                this.connection = connection;
+                this.isLoading = true;
+                try {
+                    const { profile } = await this.plugin.connect(connection.signal);
+                    if (!connection.signal.aborted) this.profile = profile;
+                } catch (error) {
+                    if (!connection.signal.aborted) {
+                        wwLib.wwNotification.open({
+                            text: 'Google account connection did not complete.',
+                            color: 'red',
+                        });
+                    }
+                } finally {
+                    if (this.connection === connection) this.isLoading = false;
+                }
+                return;
+            }
             const data = await this.plugin.authorize();
             this.profile = undefined;
             window.open(data.authUrl, '_target');
@@ -71,7 +108,7 @@ export default {
             try {
                 const data = await this.plugin.getProfile();
                 this.profile = data.profile;
-                this.setPrivateProp('token', data.token);
+                if (data.token) this.setPrivateProp('token', data.token);
                 this.isLoading = false;
                 clearInterval(this.interval);
             } catch (err) {
@@ -79,19 +116,20 @@ export default {
                 wwLib.wwLog.error(err);
             }
         },
-        async getSpreadsheetMeta(spreadsheetId) {
+        async getSpreadsheetMeta(spreadsheetId, revision) {
             try {
                 this.isLoading = true;
                 const { properties } = await this.plugin.getSpreadsheetMeta(spreadsheetId);
-                this.setPrivateProp('name', properties.title);
+                if (revision === this.metaRevision) this.setPrivateProp('name', properties.title);
             } catch (err) {
+                if (revision !== this.metaRevision) return;
                 this.setPrivateProp('name', '');
                 wwLib.wwNotification.open({
                     text: 'Unable to pull your sheets, please make sure the plugin is still connected to your account.',
                     color: 'red',
                 });
             } finally {
-                this.isLoading = false;
+                if (revision === this.metaRevision) this.isLoading = false;
             }
         },
         setSpreadsheet(value) {
@@ -107,7 +145,9 @@ export default {
                     name: '',
                 },
             });
-            if (spreadsheetId) this.getSpreadsheetMeta(spreadsheetId);
+            this.metaRevision++;
+            if (spreadsheetId) this.getSpreadsheetMeta(spreadsheetId, this.metaRevision);
+            else this.isLoading = false;
         },
         setPrivateProp(key, value) {
             this.$emit('update:settings', {
