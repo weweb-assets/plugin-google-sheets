@@ -1,0 +1,59 @@
+{
+    "schemaVersion": 1,
+    "features": {
+        "datasource": true
+    },
+    "settings": {
+        "fields": [
+            {
+                "key": "account",
+                "label": "Google account",
+                "type": "connection",
+                "operation": "googleSheets.account"
+            },
+            {
+                "key": "spreadsheet",
+                "label": "Spreadsheet URL",
+                "type": "resource",
+                "operation": "googleSheets.spreadsheet",
+                "required": true,
+                "placeholder": "https://docs.google.com/spreadsheets/d/…"
+            }
+        ]
+    },
+    "collection": {
+        "fields": [
+            {
+                "key": "name",
+                "label": "Sheet",
+                "type": "choice",
+                "operation": "googleSheets.sheets",
+                "required": true
+            },
+            {
+                "key": "range",
+                "label": "Cells range",
+                "type": "text",
+                "initial": "",
+                "placeholder": "A1:Z1"
+            },
+            {
+                "key": "dimensions",
+                "label": "Titles are in",
+                "type": "choice",
+                "initial": "ROWS",
+                "choices": [
+                    {
+                        "label": "First row",
+                        "value": "ROWS"
+                    },
+                    {
+                        "label": "First column",
+                        "value": "COLUMNS"
+                    }
+                ],
+                "required": true
+            }
+        ]
+    }
+}
